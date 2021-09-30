@@ -1,0 +1,157 @@
+entity Company {
+	id Long
+	name String
+	address String
+	RNC String
+    email String
+    telephone String
+    cellPhone String
+	logo String
+	motto String
+	primaryColor String
+	secundaryColor String
+	mission String
+	vision String
+	values String
+    createdBy Long
+    createdDate Instant
+    updatedBy Long
+    updatedDate Instant
+    isDelete Boolean
+    isActive Boolean
+}
+
+entity Person {
+	id Long
+	firstName String
+	lastName String
+	birthday Instant
+	idGender Integer
+	identificationNumber String
+	address String
+	email String
+    picture String
+    telephone String
+    cellphone String
+	createdBy Long
+    createdDate Instant
+    updatedBy Long
+    updatedDate Instant
+    isDelete Boolean
+    isActive Boolean
+}
+
+entity User {
+	id Long
+    person Person
+    company Company
+    password String
+    lastLogin Instant
+    lastLogout Instant
+    needChangePassword Boolean
+    createdBy Long
+    createdDate Instant
+    updatedBy Long
+    updatedDate Instant
+    isDelete Boolean
+    isActive Boolean
+}
+
+
+entity Student {
+	id Long
+	firstName String
+	lastName String
+	birthday Instant
+	gender Gender
+	picture String
+    level Level
+    createdBy Long
+    createdDate Instant
+    updatedBy Long
+    updatedDate Instant
+    isDelete Boolean
+    isActive Boolean
+}
+
+entity TypeRelationship {
+	id Integer
+    description String
+    createdBy Long
+    createdDate Instant
+    updatedBy Long
+    updatedDate Instant
+    isDelete Boolean
+    isActive Boolean
+}
+
+entity Parent {
+	id Long
+    person Person
+    student Student
+	typeRelationship TypeRelationship
+    createdBy Long
+    createdDate Instant
+    updatedBy Long
+    updatedDate Instant
+    isDelete Boolean
+    isActive Boolean
+}
+
+entity Role {
+	id Integer
+    description String
+    //TODO preguntar  para que es esto
+    isForSuperUser Boolean
+    createdBy Long
+    createdDate Instant
+    updatedBy Long
+    updatedDate Instant
+    isDelete Boolean
+    isActive Boolean
+}
+
+entity Gender {
+	id Integer
+    description String
+    createdBy Long
+    createdDate Instant
+    updatedBy Long
+    updatedDate Instant
+    isDelete Boolean
+    isActive Boolean
+}
+
+entity Level {
+	id Integer
+    description String
+    createdBy Long
+    createdDate Instant
+    updatedBy Long
+    updatedDate Instant
+    isDelete Boolean
+    isActive Boolean
+}
+
+
+relationship OneToOne {
+
+	User{company} to Company
+    User{role} to Role
+	User{person} to Person
+    
+    Person{gender} to Gender
+    
+    Parent{person} to Person
+    Parent{typeRelationship} to TypeRelationship
+    
+    Student{gender} to Gender
+    Student{level} to Level
+    
+}
+
+relationship OneToMany{
+	 Parent{student} to Student 
+}
+// Set service options to all except few
+service all with serviceImpl
